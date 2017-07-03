@@ -1,5 +1,7 @@
-import http from 'http';
+import bodyParser from 'body-parser';
 import express from 'express';
+import http from 'http';
+import mongoose from 'mongoose';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 
@@ -7,7 +9,6 @@ const app = express();
 
 app.server = http.createServer(app);
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
 app.server.listen(process.env.PORT || 8000, () => {
