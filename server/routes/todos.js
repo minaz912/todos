@@ -12,8 +12,6 @@ router.get('/', async (req, res) => {
 router.post('/', (req, res) => {
   const todoItem = req.body.todo;
   const todo = new Todo(todoItem);
-  console.log(todoItem)
-  console.log(todo)
   todo.save().then((result) => {
     return res.json({data: result, error: null});
   }).catch((err) => {
