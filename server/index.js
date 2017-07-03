@@ -11,6 +11,9 @@ app.server = http.createServer(app);
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/todos');
+
 app.server.listen(process.env.PORT || 8000, () => {
 		console.log(`Started on port ${app.server.address().port}`); //eslint-disable-line
 	});
