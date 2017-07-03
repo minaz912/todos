@@ -3,7 +3,8 @@ import express from 'express';
 import http from 'http';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
-import bodyParser from 'body-parser';
+
+import todosRoutes from './routes/todos';
 
 const app = express();
 
@@ -15,9 +16,13 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/todos');
 
 app.server.listen(process.env.PORT || 8000, () => {
-		console.log(`Started on port ${app.server.address().port}`); //eslint-disable-line
-	});
+	console.log(`Started on http://127.0.0.1:${app.server.address().port}`); //eslint-disable-line
+});
+
+app.use('/todos', todosRoutes);
 
 app.get('/', (req, res) => {
-  res.json({data: 'hello'});
-})
+  res.send(`App running at http://127.0.0.1:${app.server.address().port}`);
+});
+
+export default app;
