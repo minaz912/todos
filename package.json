@@ -4,9 +4,11 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
+    "start-all": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server/index.js --exec \"node -r dotenv/config -r babel-register\"",
+    "client": "node start-client.js",
     "prestart": "npm run -s build",
     "start": "node dist/index.js",
-    "dev": "nodemon server/index.js --exec \"node -r dotenv/config -r babel-register\"",
     "clean": "rimraf dist",
     "build": "npm run clean && mkdir -p dist && babel server -s -D -d dist",
     "test": "jest --watch"
@@ -22,6 +24,7 @@
   "devDependencies": {
     "babel-jest": "^20.0.3",
     "babel-register": "^6.24.1",
+    "concurrently": "^3.5.0",
     "dotenv": "^4.0.0",
     "eslint": "^4.1.1",
     "eslint-plugin-import": "^2.6.1",
