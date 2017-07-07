@@ -36,7 +36,7 @@ const TodoItem = (props) => {
         </div>
       </div>
       <div className="todo-row todo-row-second">
-        {props.desc}
+        {props.desc || '<No Description>'}
       </div>
     </li>
   )
