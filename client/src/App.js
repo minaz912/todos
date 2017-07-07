@@ -71,32 +71,16 @@ class App extends Component {
           <h2>Todos List</h2>
         </div>
         <div className="container">
-          <ul id="myUL">
-            { this.props.todos.map((todo) => <TodoItem key={todo._id} guid={todo._id} title={todo.name} desc={todo.description} dueDate={todo.dueDate} priority={todo.priority} completed={todo.completed} editCb={this.editTodo.bind(this)} deleteCb={this.deleteTodo.bind(this)} />)}
-            </ul>
-              <div id="myDIV" className="header">
-                <h2>Add Todo</h2>
-                <form className="add-todo-form" onSubmit={this.addTodo.bind(this)}>
-                  <label htmlFor="title">Title:</label>
-                  <input className="form-control" type="text" id="title" defaultValue="" />
-
-              <br />
-
-              <label htmlFor="desc">Description:</label>
-              <textarea className="form-control" rows="4" name="desc" defaultValue="..." />
-
-              <br />
-
-              <label htmlFor="date">Due Date:</label>
-              <input className="form-control" placeholder="Date" type="date" id="date" />
-
-              <br />
-
-              <label htmlFor="priority">Priority:</label>
-              <select className="form-control" id="priority">
-                <option value="NORMAL">Normal</option>
-                <option value="IMPORTANT">Important</option>
-                <option value="URGENT">Urgent</option>
+          <div className="row">
+            <div className="view-total col-xs-2 col-xs-offset-8">
+              <strong>Total:</strong> {this.props.todos.length} Todos
+            </div>
+            <div className="view-mode col-xs-2">
+              <select value={this.viewMode} onChange={this.getTodos.bind(this)}>
+                <option value="ALL">All</option>
+                <option value="TODAY">Today</option>
+                <option value="UPCOMING">Upcoming</option>
+                <option value="COMPLETED">Completed</option>
               </select>
             </div>
           </div>
@@ -184,11 +168,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getTodosList: () => dispatch(getTodosAction()),
+    getTodosList: filter => dispatch(getTodosAction(filter)),
     addTodo: todo => dispatch(addTodoAction(todo)),
     editTodo: (guid, editedTodo) => dispatch(editTodoAction(guid, editedTodo)),
-    deleteTodo: guid => dispatch(deleteTodoAction(guid)),
-    // changeViewMode: viewMode => dispatch(changeViewModeAction(viewMode))
+    deleteTodo: guid => dispatch(deleteTodoAction(guid))
   };
 };
 
