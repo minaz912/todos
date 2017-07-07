@@ -22,3 +22,83 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+
+/* Style the header */
+
+.header {
+  background-color: #f44336;
+  padding: 30px 40px;
+  color: white;
+  text-align: center;
+}
+
+
+/* Clear floats after the header */
+
+.header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the "Add" button */
+
+.addBtn {
+  padding: 10px;
+  width: 25%;
+  background: #d9d9d9;
+  color: #555;
+  float: left;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.addBtn:hover {
+  background-color: #bbb;
+}
+
+.todo-container {
+  margin: 0 25%;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row wrap;
+  justify-content: flex-start;
+}
+
+.todo-name {
+  flex-grow: 1;
+}
+
+/* Style the close button */
+.icon-right {
+  margin: 10px;
+  border-radius: 2px;
+  padding: 5px;
+  color: #fff;
+  text-transform: capitalize;
+  align-self: flex-end;
+}
+
+.icon-close {
+  color: #000;
+}
+
+.icon-right.icon-close:hover {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.URGENT {
+  background-color: #f44336;
+}
+
+.IMPORTANT {
+  background-color: #ece662;
+}
+
+.NORMAL {
+  background-color: #5de95d;
+}
