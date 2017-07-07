@@ -1,5 +1,11 @@
 import moment from 'moment';
 
+const PRIORITY_LEVELS = {
+  'URGENT': 1,
+  'IMPORTANT': 2,
+  'NORMAL': 3
+};
+
 // ACTIONS
 export const getTodosAction = (viewMode) => {
   return (dispatch) => fetch('/todos')
@@ -92,10 +98,12 @@ export default (state = initialState, action) => {
     case 'FETCH_TODOS_LIST_SUCCESS':
       // return action.todos;
       if (action.viewMode === 'ALL') {
-        return action.todos;
+        return action.todos
+          .sort((a, b) => PRIORITY_LEVELS[a.priority] > PRIORITY_LEVELS[b.priority]);
       } else if (action.viewMode === 'TODAY') {
         return action.todos
-          .filter((todo) => !todo.completed && moment().diff(moment(todo.dueDate)) >= 0 );
+          .filter((todo) => !todo.completed && moment().diff(moment(todo.dueDate)) >= 0)
+          .sort((a, b) => PRIORITY_LEVELS[a.priority] > PRIORITY_LEVELS[b.priority]);
       } else if (action.viewMode === 'COMPLETED') {
         return action.todos
           .filter((todo) => todo.completed)
@@ -105,7 +113,8 @@ export default (state = initialState, action) => {
           .filter((todo) => !todo.completed && moment().diff(moment(todo.dueDate)) <= 0 )
           .sort((a, b) => moment.utc(a.completionDate).diff(moment.utc(b.completionDate)));
       } else {
-        return action.todos;
+        return action.todos
+          .sort((a, b) => PRIORITY_LEVELS[a.priority] > PRIORITY_LEVELS[b.priority]);
       }
     case 'ADD_TODO_SUCCESS':
       return [
