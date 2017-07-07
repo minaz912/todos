@@ -40,7 +40,6 @@ export const addTodoSuccess = (todo) => {
 }
 
 export const editTodoAction = (guid, editedTodo) => {
-  console.log(editedTodo);
   return (dispatch) => {
     fetch(`/todos/${guid}`, {
       method: 'PUT',
@@ -59,6 +58,23 @@ export const editTodoSuccess = (todo) => {
   }
 }
 
+export const deleteTodoAction = (guid) => {
+  return (dispatch) => {
+    fetch(`/todos/${guid}`, {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+    })
+    .then((response) => response.json())
+    .then((todo) => dispatch(deleteTodoSuccess(todo.data._id)));
+  }
+}
+
+export const deleteTodoSuccess = (guid) => {
+  return {
+    type: 'DELETE_TODO_SUCCESS',
+    guid
+  }
+}
 
 // REDUCERS
 const initialState = []
@@ -79,6 +95,8 @@ export default (state = initialState, action) => {
         }
         return todo;
       });
+    case 'DELETE_TODO_SUCCESS':
+      return state.filter(todo => todo._id !== action.guid);
     default:
       return state
   }

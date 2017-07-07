@@ -38,4 +38,24 @@ router.put('/:id', (req, res) => {
   }
 });
 
+
+router.delete('/:id', (req, res) => {
+  const todoId = req.params.id;
+  if (todoId) {
+    Todo.findById(todoId)
+      .then((todo) => {
+        return Object.assign(todo, req.body.todo)
+      })
+      .then((todo) => {
+        return todo.remove();
+      })
+      .then((removedTodo) => {
+        console.log(removedTodo);
+        return res.json({data: removedTodo});
+      });
+  } else {
+    return res.json({data: {}, error: 'Incorrect Todo ID'});
+  }
+});
+
 export default router;

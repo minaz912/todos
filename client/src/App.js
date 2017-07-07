@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {getTodosAction, addTodoAction, editTodoAction} from './modules/todos';
+import {getTodosAction, addTodoAction, editTodoAction, deleteTodoAction} from './modules/todos';
 
 import TodoItem from './todoItem';
 
@@ -25,11 +25,9 @@ class App extends Component {
     }
 
     this.props.addTodo(newTodo);
-    // console.log(title, description, priority, date);
   }
 
   editTodo(guid, name, description, priority, dueDate, completed, completionDate) {
-    console.log(guid, name, description, priority, dueDate, completed);
     const newCompletionDate = completed ? (completionDate ? completionDate : new Date()) : null;
     this.props.editTodo(guid, {
       name,
@@ -41,6 +39,10 @@ class App extends Component {
     });
   }
 
+  deleteTodo(guid) {
+    this.props.deleteTodo(guid);
+  }
+
   render() {
     return (
       <div className="App">
@@ -50,11 +52,11 @@ class App extends Component {
         </div>
         <div className="container">
           <ul id="myUL">
-            { this.props.todos.map((todo) => <TodoItem key={todo._id} guid={todo._id} title={todo.name} desc={todo.description} dueDate={todo.dueDate} priority={todo.priority} completed={todo.completed} editCb={this.editTodo.bind(this)} />)}
-          </ul>
-          <div id="myDIV" className="header">
-            <h2>Add Todo</h2>
-            <form className="add-todo-form" onSubmit={this.addTodo.bind(this)}>
+            { this.props.todos.map((todo) => <TodoItem key={todo._id} guid={todo._id} title={todo.name} desc={todo.description} dueDate={todo.dueDate} priority={todo.priority} completed={todo.completed} editCb={this.editTodo.bind(this)} deleteCb={this.deleteTodo.bind(this)} />)}
+            </ul>
+              <div id="myDIV" className="header">
+                <h2>Add Todo</h2>
+                <form className="add-todo-form" onSubmit={this.addTodo.bind(this)}>
               <label htmlFor="title">Title:</label>
               <input className="form-control" type="text" id="title" defaultValue="" />
 
@@ -99,7 +101,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getTodosList: () => dispatch(getTodosAction()),
     addTodo: todo => dispatch(addTodoAction(todo)),
-    editTodo: (guid, editedTodo) => dispatch(editTodoAction(guid, editedTodo))
+    editTodo: (guid, editedTodo) => dispatch(editTodoAction(guid, editedTodo)),
+    deleteTodo: guid => dispatch(deleteTodoAction(guid))
   }
 }
 
