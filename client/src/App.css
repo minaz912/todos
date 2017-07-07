@@ -116,6 +116,14 @@
   vertical-align: middle;
 }
 
+.view-mode {
+  padding: 10px;
+}
+
+.view-total {
+  line-height: 60px;
+}
+
 label {
   display: inline-block;
   width: 25%;
@@ -126,4 +134,5 @@ select {
   background-color: #fff;
   color: #000;
   height: 40px;
+  width: 100%;
 }
