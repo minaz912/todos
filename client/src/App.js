@@ -5,8 +5,7 @@ import {
   getTodosAction,
   addTodoAction,
   editTodoAction,
-  deleteTodoAction,
-  changeViewModeAction
+  deleteTodoAction
 } from './modules/todos';
 
 import TodoItem from './todoItem';
@@ -72,8 +71,10 @@ class App extends Component {
         </div>
         <div className="container">
           <div className="row">
-            <div className="view-total col-xs-2 col-xs-offset-8">
-              <strong>Total:</strong> {this.props.todos.length} Todos
+            <div className="view-total col-xs-4 col-xs-offset-6">
+              <p>
+                <strong>Total:</strong> {this.props.todos.length} Todos
+              </p>
             </div>
             <div className="view-mode col-xs-2">
               <select value={this.viewMode} onChange={this.getTodos.bind(this)}>

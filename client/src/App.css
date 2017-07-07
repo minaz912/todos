@@ -116,12 +116,16 @@
   vertical-align: middle;
 }
 
-.view-mode {
+.view-mode, .view-total {
   padding: 10px;
 }
 
 .view-total {
-  line-height: 60px;
+  text-align: right;
+}
+
+.view-total > p {
+  margin: 10px;
 }
 
 label {
