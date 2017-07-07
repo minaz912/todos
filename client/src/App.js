@@ -57,8 +57,8 @@ class App extends Component {
               <div id="myDIV" className="header">
                 <h2>Add Todo</h2>
                 <form className="add-todo-form" onSubmit={this.addTodo.bind(this)}>
-              <label htmlFor="title">Title:</label>
-              <input className="form-control" type="text" id="title" defaultValue="" />
+                  <label htmlFor="title">Title:</label>
+                  <input className="form-control" type="text" id="title" defaultValue="" />
 
               <br />
 
