@@ -1,8 +1,16 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
+import {getTodosAction, addTodoAction} from './modules/todos';
+
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.getTodosList();
+  }
+
   render() {
     return (
       <div className="App">
@@ -18,4 +26,17 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    todos: state.todos
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getTodosList: () => dispatch(getTodosAction()),
+    // addTodo: todo => dispatch(addTodoAction())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
