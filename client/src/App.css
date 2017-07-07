@@ -54,8 +54,23 @@
 .todo-container {
   font-size: 16px;
   display: flex;
-  flex-direction: row wrap;
+  flex-direction: column;
+  flex-wrap: wrap;
   justify-content: flex-start;
+}
+
+.todo-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.todo-row-first {
+  font-weight: 700;
+}
+
+.todo-row-second {
+  margin-top: 10px;
+  text-indent: 10px;
 }
 
 .todo-name {
