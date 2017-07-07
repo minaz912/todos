@@ -3,7 +3,6 @@ export const getTodosAction = (dispatch) => {
   return (dispatch) => {
     fetch('/todos')
             .then((response) => {
-              console.log('hello');
                 if (!response.ok) {
                     throw Error(response.statusText);
                 }
