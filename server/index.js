@@ -9,6 +9,7 @@ import todosRoutes from './routes/todos';
 const app = express();
 
 app.server = http.createServer(app);
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 

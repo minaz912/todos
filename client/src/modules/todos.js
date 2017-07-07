@@ -20,6 +20,26 @@ export const getTodosListSuccess = (todos) => {
   }
 }
 
+export const addTodoAction = (todo) => {
+  console.log(todo);
+  return (dispatch) => {
+    fetch('/todos', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({"todo": todo})
+    })
+    .then((response) => response.json())
+    .then((todo) => dispatch(addTodoSuccess(todo.data)));
+  }
+}
+
+export const addTodoSuccess = (todo) => {
+  return {
+    type: 'ADD_TODO_SUCCESS',
+    todo
+  }
+}
+
 
 // REDUCERS
 const initialState = []
@@ -28,6 +48,11 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case 'FETCH_TODOS_LIST_SUCCESS':
       return action.todos;
+    case 'ADD_TODO_SUCCESS':
+      return [
+        ...state,
+        action.todo
+      ]
     default:
       return state
   }

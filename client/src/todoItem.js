@@ -5,7 +5,7 @@ const TodoItem = (props) => {
   return (
     <li className='todo-container'>
       <div className="todo-name">
-        {props.title}
+        {props.title || '<Untitled Todo>'}
       </div>
       <div>
         <span className={priorityClsName}>

@@ -15,13 +15,13 @@ class App extends Component {
 
   addTodo(ev) {
     ev.preventDefault();
-    const {title, description, priority, date} = ev.target;
+    const {title, desc, priority, date} = ev.target;
 
     const newTodo = {
       name: title.value,
-      description: description.value,
-      dueDate: new Date(date),
-      priority: priority
+      description: desc.value,
+      dueDate: date.value,
+      priority: priority.value
     }
 
     this.props.addTodo(newTodo);
@@ -43,12 +43,12 @@ class App extends Component {
             <h2>Add Todo</h2>
             <form className="add-todo-form" onSubmit={this.addTodo.bind(this)}>
               <label htmlFor="title">Title:</label>
-              <input className="form-control" type="text" id="title" placeholder="Title..." />
+              <input className="form-control" type="text" id="title" defaultValue="" />
 
               <br />
 
               <label htmlFor="desc">Description:</label>
-              <textarea className="form-control" rows="4" name="desc" placeholder="Description..." />
+              <textarea className="form-control" rows="4" name="desc" defaultValue="..." />
 
               <br />
 
@@ -85,7 +85,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getTodosList: () => dispatch(getTodosAction()),
-    // addTodo: todo => dispatch(addTodoAction())
+    addTodo: todo => dispatch(addTodoAction(todo))
   }
 }
 
