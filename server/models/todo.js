@@ -23,6 +23,10 @@ const todoSchema = new Schema({
     required: false,
     default: new Date(new Date().getTime() + (WEEK_IN_MS))
   },
+  completed: {
+    type: Boolean,
+    default: false
+  },
   completionDate: {
     type: Date,
     default: null
