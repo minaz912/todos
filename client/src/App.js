@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 
 import {getTodosAction, addTodoAction} from './modules/todos';
 
+import TodoItem from './todoItem';
+
 import logo from './logo.svg';
 import './App.css';
 
@@ -16,11 +18,11 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <h2>Todos List</h2>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <ul id="myUL">
+          { this.props.todos.map((todo) => <TodoItem key={todo._id} name={todo.name} priority={todo.priority} />)}
+        </ul>
       </div>
     );
   }
