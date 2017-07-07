@@ -21,7 +21,6 @@ export const getTodosListSuccess = (todos) => {
 }
 
 export const addTodoAction = (todo) => {
-  console.log(todo);
   return (dispatch) => {
     fetch('/todos', {
       method: 'POST',
@@ -40,6 +39,26 @@ export const addTodoSuccess = (todo) => {
   }
 }
 
+export const editTodoAction = (guid, editedTodo) => {
+  console.log(editedTodo);
+  return (dispatch) => {
+    fetch(`/todos/${guid}`, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({"todo": editedTodo})
+    })
+    .then((response) => response.json())
+    .then((todo) => dispatch(editTodoSuccess(todo.data)));
+  }
+}
+
+export const editTodoSuccess = (todo) => {
+  return {
+    type: 'EDIT_TODO_SUCCESS',
+    todo
+  }
+}
+
 
 // REDUCERS
 const initialState = []
@@ -53,6 +72,13 @@ export default (state = initialState, action) => {
         ...state,
         action.todo
       ]
+    case 'EDIT_TODO_SUCCESS':
+      return state.map((todo, index) => {
+        if (todo._id === action.todo._id) {
+          return action.todo;
+        }
+        return todo;
+      });
     default:
       return state
   }

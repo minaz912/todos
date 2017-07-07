@@ -19,4 +19,23 @@ router.post('/', (req, res) => {
   });
 });
 
+
+router.put('/:id', (req, res) => {
+  const todoId = req.params.id;
+  if (todoId) {
+    Todo.findById(todoId)
+      .then((todo) => {
+        return Object.assign(todo, req.body.todo)
+      })
+      .then((todo) => {
+        return todo.save();
+      })
+      .then((updatedTodo) => {
+        return res.json({data: updatedTodo});
+      });
+  } else {
+    return res.json({data: {}, error: 'Incorrect Todo ID'});
+  }
+});
+
 export default router;

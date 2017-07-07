@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {getTodosAction, addTodoAction} from './modules/todos';
+import {getTodosAction, addTodoAction, editTodoAction} from './modules/todos';
 
 import TodoItem from './todoItem';
 
@@ -28,6 +28,19 @@ class App extends Component {
     // console.log(title, description, priority, date);
   }
 
+  editTodo(guid, name, description, priority, dueDate, completed, completionDate) {
+    console.log(guid, name, description, priority, dueDate, completed);
+    const newCompletionDate = completed ? (completionDate ? completionDate : new Date()) : null;
+    this.props.editTodo(guid, {
+      name,
+      description,
+      priority,
+      dueDate,
+      completed,
+      completionDate: newCompletionDate
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -37,7 +50,7 @@ class App extends Component {
         </div>
         <div className="container">
           <ul id="myUL">
-            { this.props.todos.map((todo) => <TodoItem key={todo._id} title={todo.name} priority={todo.priority} />)}
+            { this.props.todos.map((todo) => <TodoItem key={todo._id} guid={todo._id} title={todo.name} desc={todo.description} dueDate={todo.dueDate} priority={todo.priority} completed={todo.completed} editCb={this.editTodo.bind(this)} />)}
           </ul>
           <div id="myDIV" className="header">
             <h2>Add Todo</h2>
@@ -85,7 +98,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getTodosList: () => dispatch(getTodosAction()),
-    addTodo: todo => dispatch(addTodoAction(todo))
+    addTodo: todo => dispatch(addTodoAction(todo)),
+    editTodo: (guid, editedTodo) => dispatch(editTodoAction(guid, editedTodo))
   }
 }
 
