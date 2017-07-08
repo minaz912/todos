@@ -36,7 +36,7 @@ class App extends Component {
     this.props.addTodo(newTodo);
   }
 
-  editTodo(
+  editTodoCb(
     guid,
     name,
     description,
@@ -56,6 +56,19 @@ class App extends Component {
       completed,
       completionDate: newCompletionDate
     });
+  }
+
+  editTodo(ev) {
+    ev.preventDefault();
+    const guid = ev.target.todo.value;
+    const {title, desc, date, priority} = ev.target;
+    const editedTodo = {
+      name: title.value,
+      description: desc.value,
+      dueDate: date.value,
+      priority: priority.value
+    };
+    this.props.editTodo(guid, editedTodo);
   }
 
   deleteTodo(guid) {
@@ -96,12 +109,12 @@ class App extends Component {
                   dueDate={todo.dueDate}
                   priority={todo.priority}
                   completed={todo.completed}
-                  editCb={this.editTodo.bind(this)}
+                  editCb={this.editTodoCb.bind(this)}
                   deleteCb={this.deleteTodo.bind(this)}
                 />
               )}
             </ul>
-            <div id="myDIV" className="header">
+            <div className="header header-red">
               <h2>Add Todo</h2>
               <form
                 className="add-todo-form"
@@ -120,7 +133,67 @@ class App extends Component {
                 <label htmlFor="desc">Description:</label>
                 <textarea
                   className="form-control"
-                  rows="4"
+                  rows="6"
+                  name="desc"
+                  defaultValue="..."
+                />
+
+                <br />
+
+                <label htmlFor="date">Due Date:</label>
+                <input
+                  className="form-control"
+                  placeholder="Date"
+                  type="date"
+                  id="date"
+                />
+
+                <br />
+
+                <label htmlFor="priority">Priority:</label>
+                <select className="form-control" id="priority">
+                  <option value="NORMAL">Normal</option>
+                  <option value="IMPORTANT">Important</option>
+                  <option value="URGENT">Urgent</option>
+                </select>
+
+                <br />
+
+                <label />
+                <input
+                  type="submit"
+                  className="addBtn btn btn-success"
+                  value="Add"
+                />
+              </form>
+            </div>
+            <div className="header header-yellow">
+              <h2>Edit Todo</h2>
+              <form
+                className="add-todo-form"
+                onSubmit={this.editTodo.bind(this)}
+              >
+
+                <label htmlFor="todo-select">Todo:</label>
+                <select id="todo">
+                  {this.props.todos.map((todo) => <option key={todo._id} value={todo._id}>{todo.name}</option>
+                  )}
+                </select>
+
+                <label htmlFor="title">Title:</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  id="title"
+                  defaultValue=""
+                />
+
+                <br />
+
+                <label htmlFor="desc">Description:</label>
+                <textarea
+                  className="form-control"
+                  rows="3"
                   name="desc"
                   defaultValue="..."
                 />

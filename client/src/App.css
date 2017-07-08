@@ -27,12 +27,20 @@
 /* Style the header */
 
 .header {
-  background-color: #f44336;
   padding: 30px 40px;
-  /*color: white;*/
+  color: white;
+  width: 50%;
+  display: inline-block;
   text-align: center;
 }
 
+.header-red {
+  background-color: #f44336;
+}
+
+.header-yellow {
+  background-color: #ece662;
+}
 
 /* Clear floats after the header */
 
