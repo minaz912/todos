@@ -17,8 +17,22 @@ export const sortByPriority = (data) => {
 export const sortByCompDate = (data) => {
   return data.sort((a, b) => moment.utc(a.completionDate).diff(moment.utc(b.completionDate)));
 }
+<<<<<<< HEAD
 
 
 export const itemIsDue = (dueDate) => {
   return moment().diff(dueDate, 'days') > 0;
 }
+||||||| merged common ancestors
+=======
+
+
+export const itemIsDue = (dueDate) => {
+  // const currentTime = new Date();
+  // const dueTime = new Date(dueDate);
+  // var utc1 = Date.UTC(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
+  // var utc2 = Date.UTC(dueTime.getFullYear(), dueTime.getMonth(), dueTime.getDate());
+  // return Math.floor((utc1 - utc2) / _MS_PER_DAY) > 0;
+  return moment().diff(dueDate, 'days') > 0;
+}
+>>>>>>> 1c24dd63239f96c127fad1f2493455d49f446fde
