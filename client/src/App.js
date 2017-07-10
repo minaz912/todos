@@ -176,7 +176,7 @@ class App extends Component {
 
                 <label htmlFor="todo-select">Todo:</label>
                 <select id="todo">
-                  {this.props.todos.map((todo) => <option key={todo._id} value={todo._id}>{todo.name}</option>
+                  {this.props.todos.map((todo) => <option key={todo._id} value={todo._id}>{todo.name || '<Untitled Todo>'}</option>
                   )}
                 </select>
 
