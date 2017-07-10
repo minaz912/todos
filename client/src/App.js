@@ -125,7 +125,7 @@ class App extends Component {
                   className="form-control"
                   type="text"
                   id="title"
-                  defaultValue=""
+                  required
                 />
 
                 <br />
