@@ -1,17 +1,13 @@
 import React from 'react';
+import { itemIsDue } from '../utils';
 
-const _MS_PER_DAY = 1000 * 60 * 60 * 24;
 
 const TodoItem = (props) => {
 
   let isDue = false;
 
   if (!props.completed && props.dueDate) {
-    const currentTime = new Date();
-    const dueTime = new Date(props.dueDate);
-    var utc1 = Date.UTC(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate());
-    var utc2 = Date.UTC(dueTime.getFullYear(), dueTime.getMonth(), dueTime.getDate());
-    isDue = Math.floor((utc1 - utc2) / _MS_PER_DAY) > 0;
+    isDue = itemIsDue(props.dueDate);
   }
 
   const containerClsName = `todo-container ${props.completed ? 'checked': (isDue ? 'due' : '')}`;
