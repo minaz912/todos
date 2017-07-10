@@ -6,9 +6,9 @@ import {
   addTodoAction,
   editTodoAction,
   deleteTodoAction
-} from './modules/todos';
+} from './modules/todosActions';
 
-import TodoItem from './todoItem';
+import TodoItem from './modules/todoItem';
 
 import logo from './logo.svg';
 import './App.css';
