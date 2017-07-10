@@ -1,42 +1,36 @@
 import moment from 'moment';
+import { sortByPriority, sortByCompDate } from '../utils';
 
-const PRIORITY_LEVELS = {
-  'URGENT': 1,
-  'IMPORTANT': 2,
-  'NORMAL': 3
-};
-
-// REDUCERS
 const initialState = []
 
-export default (state = initialState, action) => {
+export default(state = initialState, action) => {
   switch (action.type) {
+
     case 'FETCH_TODOS_LIST_SUCCESS':
-      // return action.todos;
       if (action.viewMode === 'ALL') {
-        return action.todos
-          .sort((a, b) => PRIORITY_LEVELS[a.priority] > PRIORITY_LEVELS[b.priority]);
+        return sortByPriority(action.todos)
       } else if (action.viewMode === 'TODAY') {
-        return action.todos
-          .filter((todo) => !todo.completed && moment().diff(moment(todo.dueDate)) >= 0)
-          .sort((a, b) => PRIORITY_LEVELS[a.priority] > PRIORITY_LEVELS[b.priority]);
+        return sortByPriority(action.todos
+                              .filter((todo) => !todo.completed && moment().diff(moment(todo.dueDate)) >= 0)
+                             )
       } else if (action.viewMode === 'COMPLETED') {
-        return action.todos
-          .filter((todo) => todo.completed)
-          .sort((a, b) => moment.utc(a.completionDate).diff(moment.utc(b.completionDate)));
+        return sortByCompDate(action.todos
+                              .filter((todo) => todo.completed)
+                             )
       } else if (action.viewMode === 'UPCOMING') {
-        return action.todos
-          .filter((todo) => !todo.completed && moment().diff(moment(todo.dueDate)) <= 0 )
-          .sort((a, b) => moment.utc(a.completionDate).diff(moment.utc(b.completionDate)));
+        return sortByCompDate(action.todos
+                              .filter((todo) => !todo.completed && moment().diff(moment(todo.dueDate)) <= 0)
+                             );
       } else {
-        return action.todos
-          .sort((a, b) => PRIORITY_LEVELS[a.priority] > PRIORITY_LEVELS[b.priority]);
+        return sortByPriority(action.todos)
       }
+
     case 'ADD_TODO_SUCCESS':
       return [
         ...state,
         action.todo
       ]
+
     case 'EDIT_TODO_SUCCESS':
       return state.map((todo, index) => {
         if (todo._id === action.todo._id) {
@@ -44,8 +38,10 @@ export default (state = initialState, action) => {
         }
         return todo;
       });
+
     case 'DELETE_TODO_SUCCESS':
       return state.filter(todo => todo._id !== action.guid);
+
     default:
       return state
   }
